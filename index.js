@@ -1,28 +1,19 @@
-import express, { Request, Response, NextFunction } from "express";
-import mongoose from "mongoose";
-import multer from "multer";
-import path from "path";
-import fs from "fs";
-import cors from "cors";
-import bodyParser from "body-parser";
-
-interface OfficialBusinessQuery {
-  employeeNumber?: string;
-  identityCardNo?: string;
-  positionGrade?: string;
-  status?: string;
-  startDateFrom?: string;
-  startDateTo?: string;
-}
+const express = require("express");
+const mongoose = require("mongoose");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
-mongoose.connect('mongodb+srv://pakiza:pakiza@pakiza.63v0o1n.mongodb.net');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://pakiza:pakiza@pakiza.63v0o1n.mongodb.net');
 
 const officialBusinessSchema = new mongoose.Schema(
   {
@@ -122,45 +113,42 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-app.get(
-  "/api/official-business",
-  (req: Request<{}, {}, {}, OfficialBusinessQuery>, res: Response) => {
-    try {
-      const filter: Record<string, any> = {};
+app.get("/api/official-business", (req, res) => {
+  try {
+    const filter = {};
 
-      if (req.query.employeeNumber)
-        filter.employeeNumber = req.query.employeeNumber;
-      if (req.query.identityCardNo)
-        filter.identityCardNo = req.query.identityCardNo;
-      if (req.query.positionGrade)
-        filter.positionGrade = req.query.positionGrade;
-      if (req.query.status) filter.recordStatus = req.query.status;
+    if (req.query.employeeNumber)
+      filter.employeeNumber = req.query.employeeNumber;
+    if (req.query.identityCardNo)
+      filter.identityCardNo = req.query.identityCardNo;
+    if (req.query.positionGrade)
+      filter.positionGrade = req.query.positionGrade;
+    if (req.query.status) filter.recordStatus = req.query.status;
 
-      if (req.query.startDateFrom || req.query.startDateTo) {
-        filter.startDateTime = {};
-        if (req.query.startDateFrom)
-          filter.startDateTime.$gte = new Date(req.query.startDateFrom);
-        if (req.query.startDateTo)
-          filter.startDateTime.$lte = new Date(req.query.startDateTo);
-      }
-
-      OfficialBusinessDeclaration.find(filter)
-        .sort({ createdAt: -1 })
-        .then((declarations) => {
-          res.json(declarations);
-        })
-        .catch((error) => {
-          console.error("Error fetching declarations:", error);
-          res.status(500).json({ message: "Internal server error" });
-        });
-    } catch (error) {
-      console.error("Error fetching declarations:", error);
-      res.status(500).json({ message: "Internal server error" });
+    if (req.query.startDateFrom || req.query.startDateTo) {
+      filter.startDateTime = {};
+      if (req.query.startDateFrom)
+        filter.startDateTime.$gte = new Date(req.query.startDateFrom);
+      if (req.query.startDateTo)
+        filter.startDateTime.$lte = new Date(req.query.startDateTo);
     }
-  }
-);
 
-app.get("/api/official-business/:id", (req: any, res: any) => {
+    OfficialBusinessDeclaration.find(filter)
+      .sort({ createdAt: -1 })
+      .then((declarations) => {
+        res.json(declarations);
+      })
+      .catch((error) => {
+        console.error("Error fetching declarations:", error);
+        res.status(500).json({ message: "Internal server error" });
+      });
+  } catch (error) {
+    console.error("Error fetching declarations:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get("/api/official-business/:id", (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid ID format" });
@@ -183,7 +171,7 @@ app.get("/api/official-business/:id", (req: any, res: any) => {
   }
 });
 
-app.post("/api/official-business", (req: Request, res: Response) => {
+app.post("/api/official-business", (req, res) => {
   try {
     const newDeclaration = new OfficialBusinessDeclaration({
       ...req.body,
@@ -205,7 +193,7 @@ app.post("/api/official-business", (req: Request, res: Response) => {
   }
 });
 
-app.put("/api/official-business/:id", (req: any, res: any) => {
+app.put("/api/official-business/:id", (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid ID format" });
@@ -235,7 +223,7 @@ app.put("/api/official-business/:id", (req: any, res: any) => {
   }
 });
 
-app.delete("/api/official-business/:id", (req: any, res: any) => {
+app.delete("/api/official-business/:id", (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: "Invalid ID format" });
@@ -261,7 +249,7 @@ app.delete("/api/official-business/:id", (req: any, res: any) => {
 app.post(
   "/api/official-business/:id/documents",
   upload.single("document"),
-  (req: any, res: any) => {
+  (req, res) => {
     try {
       if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(400).json({ message: "Invalid ID format" });
@@ -289,7 +277,7 @@ app.post(
         .then((updatedDeclaration) => {
           if (!updatedDeclaration) return;
 
-          const documentPath = `/uploads/documents/${req.params.id}/${req.file?.filename}`;
+          const documentPath = `/uploads/documents/${req.params.id}/${req.file.filename}`;
           res.json({ documentUrl: documentPath });
         })
         .catch((error) => {
@@ -303,7 +291,7 @@ app.post(
   }
 );
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Something went wrong!" });
 });
