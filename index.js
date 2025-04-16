@@ -13,7 +13,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://pakiza:pakiza@pakiza.63v0o1n.mongodb.net');
+mongoose.connect(
+  process.env.MONGODB_URI ||
+    "mongodb+srv://pakiza:pakiza@pakiza.63v0o1n.mongodb.net"
+);
 
 const officialBusinessSchema = new mongoose.Schema(
   {
@@ -116,13 +119,16 @@ const upload = multer({
 app.get("/api/official-business", (req, res) => {
   try {
     const filter = {};
-
+    if (req.query.applicationReferenceNo)
+      filter.applicationReferenceNo = req.query.applicationReferenceNo;
+    if (req.query.branchUnit) filter.branchUnit = req.query.branchUnit;
+    if (req.query.typeOfBusiness)
+      filter.typeOfBusiness = req.query.typeOfBusiness;
     if (req.query.employeeNumber)
       filter.employeeNumber = req.query.employeeNumber;
     if (req.query.identityCardNo)
       filter.identityCardNo = req.query.identityCardNo;
-    if (req.query.positionGrade)
-      filter.positionGrade = req.query.positionGrade;
+    if (req.query.positionGrade) filter.positionGrade = req.query.positionGrade;
     if (req.query.status) filter.recordStatus = req.query.status;
 
     if (req.query.startDateFrom || req.query.startDateTo) {
