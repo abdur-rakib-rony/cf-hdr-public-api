@@ -1,0 +1,524 @@
+{
+  "info": {
+    "_postman_id": "a8d75b2e-34e5-4f5d-aad0-f29a2d7a6a89",
+    "name": "Complete API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Collection for testing all APIs in the codebase"
+  },
+  "item": [
+    {
+      "name": "Official Business Declarations",
+      "item": [
+        {
+          "name": "Get All Official Business Declarations",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/official-business",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "official-business"],
+              "query": [
+                {
+                  "key": "applicationReferenceNo",
+                  "value": "OB-2025-001",
+                  "disabled": true
+                },
+                {
+                  "key": "branchUnit",
+                  "value": "Accounting",
+                  "disabled": true
+                },
+                {
+                  "key": "typeOfBusiness",
+                  "value": "Meeting",
+                  "disabled": true
+                },
+                {
+                  "key": "employeeNumber",
+                  "value": "EMP123",
+                  "disabled": true
+                },
+                {
+                  "key": "identityCardNo",
+                  "value": "IC123456",
+                  "disabled": true
+                },
+                {
+                  "key": "positionGrade",
+                  "value": "F45",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "Active",
+                  "disabled": true
+                },
+                {
+                  "key": "startDateFrom",
+                  "value": "2025-04-01",
+                  "disabled": true
+                },
+                {
+                  "key": "startDateTo",
+                  "value": "2025-04-30",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Retrieves all official business declarations with optional filtering"
+          }
+        },
+        {
+          "name": "Get Single Official Business Declaration",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/official-business/{{officialBusinessId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "official-business", "{{officialBusinessId}}"]
+            },
+            "description": "Retrieves a specific official business declaration by ID"
+          }
+        },
+        {
+          "name": "Create Official Business Declaration",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/official-business",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "official-business"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applicationReferenceNo\": \"OB-2025-001\",\n  \"agencyDivision\": \"Finance\",\n  \"branchUnit\": \"Accounting\",\n  \"employeeNumber\": \"EMP123\",\n  \"employeeName\": \"John Doe\",\n  \"identityCardNo\": \"IC123456\",\n  \"positionGrade\": \"F45\",\n  \"startDateTime\": \"2025-04-21T09:00:00.000Z\",\n  \"expirationDateTime\": \"2025-04-21T17:00:00.000Z\",\n  \"typeOfBusiness\": \"Meeting\",\n  \"businessName\": \"Budget Planning\",\n  \"information\": \"Annual budget planning meeting\",\n  \"location\": \"Headquarters\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Creates a new official business declaration"
+          }
+        },
+        {
+          "name": "Update Official Business Declaration",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/official-business/{{officialBusinessId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "official-business", "{{officialBusinessId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"typeOfBusiness\": \"Conference\",\n  \"businessName\": \"Annual Finance Conference\",\n  \"information\": \"Updated information about the conference\",\n  \"location\": \"Convention Center\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Updates an existing official business declaration"
+          }
+        },
+        {
+          "name": "Delete Official Business Declaration",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/api/official-business/{{officialBusinessId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "official-business", "{{officialBusinessId}}"]
+            },
+            "description": "Deletes an official business declaration"
+          }
+        },
+        {
+          "name": "Upload Supporting Document",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/official-business/{{officialBusinessId}}/documents",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "official-business",
+                "{{officialBusinessId}}",
+                "documents"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document",
+                  "type": "file",
+                  "src": "/path/to/your/file.pdf"
+                }
+              ]
+            },
+            "description": "Uploads a supporting document for an official business declaration"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ramadan Rest Period Applications",
+      "item": [
+        {
+          "name": "Get All Applications",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/ramadan-rest-periods?page=1&limit=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ramadan-rest-periods"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "ministry",
+                  "value": "Ministry of Finance",
+                  "disabled": true
+                },
+                {
+                  "key": "applicationStatus",
+                  "value": "New",
+                  "disabled": true
+                },
+                {
+                  "key": "startDateFrom",
+                  "value": "2025-03-01",
+                  "disabled": true
+                },
+                {
+                  "key": "startDateTo",
+                  "value": "2025-04-01",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Retrieves all ramadan rest period applications with optional filtering"
+          }
+        },
+        {
+          "name": "Get Single Application",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/ramadan-rest-periods/{{applicationId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ramadan-rest-periods", "{{applicationId}}"]
+            },
+            "description": "Retrieves a specific rest period application by ID"
+          }
+        },
+        {
+          "name": "Create New Application",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/ramadan-rest-periods",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ramadan-rest-periods"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"employeeNumber\": \"EMP-12345\",\n  \"employeeName\": \"John Doe\",\n  \"identityCardNo\": \"IC-987654\",\n  \"ministry\": \"Ministry of Finance\",\n  \"division\": \"Accounting Division\",\n  \"branchUnit\": \"Payroll Unit\",\n  \"positionGrade\": \"F45\",\n  \"startDate\": \"2025-03-01T00:00:00.000Z\",\n  \"expirationDate\": \"2025-04-01T00:00:00.000Z\",\n  \"breakTimeOption\": \"Ramadan Month WBF\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Creates a new rest period application"
+          }
+        },
+        {
+          "name": "Cancel Application (Employee)",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/ramadan-rest-periods/{{applicationId}}/cancel",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "ramadan-rest-periods",
+                "{{applicationId}}",
+                "cancel"
+              ]
+            },
+            "description": "Cancels a pending application (can only be done by the employee if status is 'New')"
+          }
+        },
+        {
+          "name": "Process Application (Approve/Reject)",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/ramadan-rest-periods/{{applicationId}}/process",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "ramadan-rest-periods",
+                "{{applicationId}}",
+                "process"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applicationStatus\": \"Approved\",\n  \"notes\": \"Application approved for the Ramadan period.\",\n  \"approvedBy\": {\n    \"name\": \"Jane Smith\",\n    \"identityCardNo\": \"IC-123456\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Processes (approves or rejects) an application"
+          }
+        },
+        {
+          "name": "Batch Process Applications",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/ramadan-rest-periods/batch-process",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ramadan-rest-periods", "batch-process"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"applicationIds\": [\"{{applicationId1}}\", \"{{applicationId2}}\"],\n  \"applicationStatus\": \"Approved\",\n  \"notes\": \"Batch approval for the Ramadan period.\",\n  \"approvedBy\": {\n    \"name\": \"Jane Smith\",\n    \"identityCardNo\": \"IC-123456\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Processes multiple applications at once"
+          }
+        },
+        {
+          "name": "Admin Cancel Approved Application",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/ramadan-rest-periods/{{applicationId}}/admin-cancel",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "ramadan-rest-periods",
+                "{{applicationId}}",
+                "admin-cancel"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Cancelled due to operational requirements.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Cancels an already approved application (admin function)"
+          }
+        },
+        {
+          "name": "Upload Supporting Document",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/ramadan-rest-periods/{{applicationId}}/documents",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "ramadan-rest-periods",
+                "{{applicationId}}",
+                "documents"
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "document",
+                  "type": "file",
+                  "src": "/path/to/your/file.pdf"
+                }
+              ]
+            },
+            "description": "Uploads a supporting document for a rest period application"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Eligibility Settings",
+      "item": [
+        {
+          "name": "Get All Eligibility Settings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/eligibility-settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "eligibility-settings"]
+            },
+            "description": "Retrieves all eligibility settings for Ramadan rest periods"
+          }
+        },
+        {
+          "name": "Update Eligibility Setting",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/eligibility-settings/{{eligibilitySettingId}}",
+              "host": ["{{baseUrl}}"],
+              "path": [
+                "api",
+                "eligibility-settings",
+                "{{eligibilitySettingId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": true,\n  \"description\": \"Only Competency Owners who use Flexible Working Hours (WBF) are allowed to apply for a break period for the month of Ramadan.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Updates a specific eligibility setting"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Department Heads",
+      "item": [
+        {
+          "name": "Get All Department Heads",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/department-heads",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "department-heads"]
+            },
+            "description": "Retrieves all department heads"
+          }
+        },
+        {
+          "name": "Create Department Head",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "{{baseUrl}}/api/department-heads",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "department-heads"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Smith\",\n  \"identityCardNo\": \"IC-123456\",\n  \"ministry\": \"Ministry of Finance\",\n  \"division\": \"Accounting Division\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Creates a new department head"
+          }
+        },
+        {
+          "name": "Update Department Head",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "{{baseUrl}}/api/department-heads/{{departmentHeadId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "department-heads", "{{departmentHeadId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Smith\",\n  \"ministry\": \"Ministry of Finance\",\n  \"division\": \"Taxation Division\",\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Updates an existing department head"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports and Statistics",
+      "item": [
+        {
+          "name": "Get Dashboard Statistics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/statistics",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "statistics"]
+            },
+            "description": "Retrieves summary statistics for the dashboard"
+          }
+        },
+        {
+          "name": "Get Department Report",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/by-department",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reports", "by-department"]
+            },
+            "description": "Retrieves application statistics grouped by department/division"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000"
+    },
+    {
+      "key": "officialBusinessId",
+      "value": "replace_with_actual_id"
+    },
+    {
+      "key": "applicationId",
+      "value": "replace_with_actual_id"
+    },
+    {
+      "key": "applicationId1",
+      "value": "replace_with_actual_id1"
+    },
+    {
+      "key": "applicationId2",
+      "value": "replace_with_actual_id2"
+    },
+    {
+      "key": "departmentHeadId",
+      "value": "replace_with_actual_id"
+    },
+    {
+      "key": "eligibilitySettingId",
+      "value": "replace_with_actual_id"
+    }
+  ]
+}
